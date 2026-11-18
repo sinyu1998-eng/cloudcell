@@ -38,18 +38,35 @@
   /* ---------- 识别 ---------- */
   async function ensureWorker() {
     if (worker) return worker;
-    log('加载识别引擎（首次约 3–6 秒）…');
-    worker = await Tesseract.createWorker('eng', 1, {
+    const CDN = {
+      corePath: 'https://cdn.jsdelivr.net/npm/tesseract.js-core@5.1.1/',
+      langPath: 'https://cdn.jsdelivr.net/npm/@tesseract.js-data/eng@1.0.0/4.0.0_best_int'
+    };
+    const LOCAL = { corePath: 'vendor/', langPath: 'vendor' };
+    const mk = (paths) => Tesseract.createWorker('eng', 1, Object.assign({
       workerPath: 'vendor/tess.worker.js',
-      corePath: 'vendor/',
-      langPath: 'vendor',
       logger: (m) => {
+        const pct = Math.round((m.progress || 0) * 100);
         if (m.status === 'recognizing text') {
-          prog.querySelector('i').style.width = Math.round(m.progress * 100) + '%';
-          log('识别中 ' + Math.round(m.progress * 100) + '%');
+          prog.querySelector('i').style.width = pct + '%';
+          log('识别中 ' + pct + '%');
+        } else if (m.status === 'loading language traineddata') {
+          prog.querySelector('i').style.width = pct + '%';
+          log('加载语言包 ' + pct + '%');
+        } else if (m.status === 'loading tesseract core' || m.status === 'initializing tesseract') {
+          prog.querySelector('i').style.width = pct + '%';
+          log('加载识别引擎 ' + pct + '%');
         }
       }
-    });
+    }, paths));
+    log('加载识别引擎（约 10MB，首次 5–15 秒，之后走缓存）…');
+    try {
+      worker = await mk(CDN);
+      log('引擎就绪（CDN），开始识别…');
+    } catch (e) {
+      log('CDN 不可达，切本地引擎…');
+      worker = await mk(LOCAL);
+    }
     return worker;
   }
 
