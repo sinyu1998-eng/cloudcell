@@ -138,6 +138,8 @@ footer a{color:var(--mut);text-decoration:none;border-bottom:1px solid var(--lin
 footer a:hover{color:var(--acid)}
 .rv{opacity:0;transform:translateY(20px);transition:opacity .65s,transform .65s}
 .rv.on{opacity:1;transform:none}
+.mbr{display:none}
+@media print{.rv{opacity:1!important;transform:none!important}}
 @media(max-width:880px){
   .two,.agentgrid,.amp,.scripts{grid-template-columns:1fr}
   .panel.on{grid-template-columns:1fr 1fr}
@@ -150,9 +152,11 @@ footer a:hover{color:var(--acid)}
 @media(max-width:520px){
   .panel.on{grid-template-columns:1fr}
   .ampout{grid-template-columns:1fr 1fr}
-  h1{font-size:34px}
+  h1{font-size:33px}
+  .mbr{display:inline}
   .flowline{gap:6px}
   .flowline .arw{display:none}
+  .agent .h{display:none}
 }
 </style>
 </head>
@@ -173,7 +177,7 @@ footer a:hover{color:var(--acid)}
   <div class="grid-bg"></div>
   <div class="wrap in">
     <span class="kicker rv"><i></i>CLOUDSAIL · AI NATIVE 生意托管与放大</span>
-    <h1 class="rv">你的生意，<br><em>我们帮你引导、托管、放大</em></h1>
+    <h1 class="rv">你的生意，<br><em>我们帮你引导、<br class="mbr">托管、放大</em></h1>
     <p class="def rv">CloudSail 是 <b>AI Native</b> 的生意托管服务：不是卖一套软件让你自己学，而是把你的业务流程拆清楚（<b>引导</b>），交给一组 <b>AI 子代理</b>每天替你跑（<b>托管</b>），跑通之后把站点、语言、渠道一层层复制出去（<b>放大</b>）。</p>
     <p class="sub rv">落到你手里的系统叫 <b style="color:var(--text)">CloudCell</b>：源码能拿走、可以放在你自己的服务器和域名下自托管。人只做两件事 —— 审批例外、决定往哪个市场放大。</p>
     <div class="flowline rv">
@@ -380,6 +384,8 @@ footer a:hover{color:var(--acid)}
 // 滚动显现
 const io=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('on')),{threshold:.1});
 document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+// 兜底：截图 / 打印 / 不支持 IO 时也不会出现整页空白
+setTimeout(()=>document.querySelectorAll('.rv:not(.on)').forEach(el=>el.classList.add('on')),1200);
 
 // 三段标签
 document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{
