@@ -219,6 +219,7 @@ function render(name,c,lang,theme,contact,assets){
     en:{...c,ui:{nav:['Home','Products','Why Us','Process','Contact'],sec:['Our Products','Why Choose Us','How We Work','Contact Us'],hero:name,cta:'Get a Quote',send:'Send Inquiry'}}
   };
   if(lang==='zh')L.en=null; if(lang==='en')L.zh=null;
+  const zhHtml=site(L.zh,'zh'),enHtml=bi?site(L.en,'en'):null;
   function site(v,vk){
     const prods=v.products.map(p=>`<div class="pc"><h4>${esc(p.name)}</h4><p>${esc(p.desc)}</p>${p.price?`<span class="pr">${esc(p.price)}</span>`:''}</div>`).join('');
     const advs=v.adv.map(a=>`<div class="ac"><h4>${esc(a.t)}</h4><p>${esc(a.d)}</p></div>`).join('');
@@ -273,12 +274,12 @@ ${assets.logo||assets.imgs.length?`<div class="logos">${assets.logo?`<img class=
 ${bi?'<button id="langT">EN / 中文</button><script>document.getElementById("langT").onclick=()=>{const s=new URLSearchParams(location.search);s.set("l",location.search.includes("l=en")?"zh":"en");location.search=s.toString()};document.getElementById("fz").textContent=location.search.includes("l=en")?"English / 中文":"中文 / English";<\/script>':''}
 </body></html>`;
   }
-  const zhHtml=site(L.zh,'zh'),enHtml=site(L.en,'en');
   if(!bi)return zhHtml;
   // 双语：包一层按 ?l= 切换的壳
   return `<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(name)}</title><script>
 var l=new URLSearchParams(location.search).get('l')||'zh';
-document.write(l==='en'?${JSON.stringify(enHtml)}:${JSON.stringify(zhHtml)});<\/script></head><body></body></html>`;
+var P={zh:${JSON.stringify(zhHtml).replace(/<\//g,'<\\/')},en:${JSON.stringify(enHtml).replace(/<\//g,'<\\/')}};
+document.write(l==='en'?P.en:P.zh);<\/script></head><body></body></html>`;
 }
 // ---------- 主流程 ----------
 async function generate(){
