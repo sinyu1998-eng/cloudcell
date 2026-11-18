@@ -727,7 +727,8 @@ const VIEWS = {
   helm: { title: { zh: '舵手 Helm', en: 'Helm' }, sub: { zh: '订单流水线', en: 'Order pipeline' } },
   captain: { title: { zh: '船长 Captain', en: 'Captain' }, sub: { zh: '代运营测算', en: 'Ops calculator' } },
   fanxuan: { title: { zh: '帆选 Fanxuan', en: 'Fanxuan' }, sub: { zh: '单品毛利', en: 'Unit margin' } },
-  beacon: { title: { zh: '灯塔 Beacon', en: 'Beacon' }, sub: { zh: '内容排期', en: 'Content calendar' } }
+  beacon: { title: { zh: '灯塔 Beacon', en: 'Beacon' }, sub: { zh: '内容排期', en: 'Content calendar' } },
+  matrix: { title: { zh: '矩阵 Matrix', en: 'Matrix' }, sub: { zh: '站点与生成器', en: 'Sites & builder' } }
 };
 
 function goto(view, silent) {
@@ -804,11 +805,11 @@ function boot() {
   // 导航
   $$('.navi').forEach(n => n.addEventListener('click', () => goto(n.dataset.view)));
   // 键盘
-  const order = ['anchor', 'helm', 'captain', 'fanxuan', 'beacon'];
+  const order = ['anchor', 'helm', 'captain', 'fanxuan', 'beacon', 'matrix'];
   document.addEventListener('keydown', e => {
     if (e.target.matches('input,textarea')) return;
     const n = +e.key;
-    if (n >= 1 && n <= 5) { goto(order[n - 1]); }
+    if (n >= 1 && n <= 6) { goto(order[n - 1]); }
     if (e.key === 'Escape') $('#helpcard').classList.remove('on');
   });
   // 语言
