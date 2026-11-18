@@ -1,4 +1,4 @@
-/* CloudCell · 交付控制台 —— 纯前端可交互演示 */
+/* CloudSail · 交付控制台 —— 纯前端可交互演示 */
 'use strict';
 
 /* ---------------- i18n ---------------- */
@@ -64,7 +64,7 @@ const BATCHES = [
       E('SRC', '寻源', 'Sourcing', { zh: '义乌 · 3C 配件厂 S-0441', en: 'Yiwu · 3C accessories S-0441' }, '2026-09-02 10:00',
         [{ zh: '报价单 QT-8620', en: 'Quotation QT-8620' }],
         [['单价', 'Unit price', '¥9.80 / pc'], ['起订量', 'MOQ', '1,000 pcs'], ['账期', 'Terms', '30% 预付']]),
-      E('AUD', '验厂', 'Factory audit', { zh: 'CloudCell 质检组', en: 'CloudCell QC team' }, '2026-10-21 16:10',
+      E('AUD', '验厂', 'Factory audit', { zh: 'CloudSail 质检组', en: 'CloudSail QC team' }, '2026-10-21 16:10',
         [{ zh: '验厂报告 AU-3188', en: 'Audit report AU-3188' }],
         [['主体一致', 'Legal entity match', '通过 / PASS'], ['厂房面积', 'Floor area', '860 ㎡'], ['在册员工', 'Staff on payroll', '22']],
         { conflict: { zh: '验厂报告签发于出运之后', en: 'Audit issued after shipment' } }),
@@ -111,7 +111,7 @@ const BATCHES = [
         [{ zh: '报价单 QT-9130', en: 'Quotation QT-9130' }],
         [['单价', 'Unit price', '¥30.60 / pc', '¥27.80 / pc'], ['起订量', 'MOQ', '600 pcs'], ['结算', 'Settlement', '人民币 · 30% 预付']],
         { flaw: { i: 0, rule: 'fp', note: { zh: '单价被改低', en: 'Unit price lowered' } } }),
-      E('AUD', '验厂', 'Factory audit', { zh: 'CloudCell 质检组', en: 'CloudCell QC team' }, '2026-11-09 15:20',
+      E('AUD', '验厂', 'Factory audit', { zh: 'CloudSail 质检组', en: 'CloudSail QC team' }, '2026-11-09 15:20',
         [{ zh: '验厂报告 AU-3502', en: 'Audit report AU-3502' }],
         [['主体一致', 'Legal entity match', '通过 / PASS'], ['厂房面积', 'Floor area', '1,780 ㎡'], ['在册员工', 'Staff on payroll', '51']]),
       E('QC', '质检', 'QC inspection', { zh: '待排期', en: 'Not scheduled' }, '—',

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI 眼镜 × CloudCell 技术路线</title>
+<title>AI 眼镜 × CloudSail 技术路线</title>
 <style>
 :root{
   --bg:#060a13; --bg2:#0a1220; --ink:#e8eef7; --dim:#8fa0b8; --faint:#54627a;
@@ -111,13 +111,13 @@ footer{border-top:1px solid var(--line);margin-top:80px;padding:26px 24px;text-a
 </style>
 </head>
 <body>
-<nav class="nav"><b>CLOUDCELL · GLASSES</b><a href="../">← 回到 CloudCell 主页</a></nav>
+<nav class="nav"><b>CLOUDSAIL · GLASSES</b><a href="../">← 回到 CloudSail 主页</a></nav>
 <div class="wrap">
 
 <div class="sec" style="margin-top:30px">
   <div class="k rv">TECH ROUTE · 技术路线</div>
-  <h1 class="rv">让眼镜<em>「看懂」</em>我看到的世界，<br>并把证据接进 CloudCell</h1>
-  <p class="lead rv">目标一句话：我戴着 AiMB-G3 在工厂里走，眼镜拍下的东西自动被 AI 识别成结构化数据（SKU / 批次 / 数量 / 缺陷），落进 CloudCell 工单，产出可复核的验货报告。下面是现状解剖、三条落地路线、完整架构和 90 天试点计划。</p>
+  <h1 class="rv">让眼镜<em>「看懂」</em>我看到的世界，<br>并把证据接进 CloudSail</h1>
+  <p class="lead rv">目标一句话：我戴着 AiMB-G3 在工厂里走，眼镜拍下的东西自动被 AI 识别成结构化数据（SKU / 批次 / 数量 / 缺陷），落进 CloudSail 工单，产出可复核的验货报告。下面是现状解剖、三条落地路线、完整架构和 90 天试点计划。</p>
 </div>
 
 <!-- ============ 现状 ============ -->
@@ -149,7 +149,7 @@ footer{border-top:1px solid var(--line);margin-top:80px;padding:26px 24px;text-a
     </div>
     <div class="rv">
       <div class="tag w">LAYER 3 · 缺口</div>
-      <h4>到 CloudCell 的桥</h4>
+      <h4>到 CloudSail 的桥</h4>
       <ul>
         <li>眼镜拍的内容<b>停在手机相册</b>，没进系统</li>
         <li>没有 VLM 视觉识别层</li>
@@ -194,7 +194,7 @@ footer{border-top:1px solid var(--line);margin-top:80px;padding:26px 24px;text-a
       <path class="acon" d="M160 105 H 190"/>
       <g class="anode" data-n="1"><rect x="190" y="60" width="150" height="90" rx="10" fill="#0a1220" stroke="#d9b36a"/><text class="t" x="265" y="95" text-anchor="middle">手机桥</text><text class="s" x="265" y="114" text-anchor="middle">拉取媒体 / 打工单号</text><text class="s" x="265" y="130" text-anchor="middle">断网本地缓存</text></g>
       <path class="acon" d="M340 105 H 370"/>
-      <g class="anode" data-n="2"><rect x="370" y="60" width="150" height="90" rx="10" fill="#0a1220" stroke="#4f8fd9"/><text class="t" x="445" y="95" text-anchor="middle">CloudCell 中台</text><text class="s" x="445" y="114" text-anchor="middle">鉴权 / 存储 / 队列</text><text class="s" x="445" y="130" text-anchor="middle">挂在工单与批次上</text></g>
+      <g class="anode" data-n="2"><rect x="370" y="60" width="150" height="90" rx="10" fill="#0a1220" stroke="#4f8fd9"/><text class="t" x="445" y="95" text-anchor="middle">CloudSail 中台</text><text class="s" x="445" y="114" text-anchor="middle">鉴权 / 存储 / 队列</text><text class="s" x="445" y="130" text-anchor="middle">挂在工单与批次上</text></g>
       <path class="acon" d="M520 105 H 550"/>
       <g class="anode" data-n="3"><rect x="550" y="60" width="150" height="90" rx="10" fill="#0a1220" stroke="#d9b36a"/><text class="t" x="625" y="95" text-anchor="middle">视觉识别层</text><text class="s" x="625" y="114" text-anchor="middle">OCR + VLM 大模型</text><text class="s" x="625" y="130" text-anchor="middle">输出结构化 JSON</text></g>
       <path class="acon" d="M700 105 H 730"/>
@@ -284,7 +284,7 @@ footer{border-top:1px solid var(--line);margin-top:80px;padding:26px 24px;text-a
   <h2 class="rv">原型已可跑<small>不是演示动画，是真的识别</small></h2>
   <div class="now" style="grid-template-columns:repeat(2,1fr)">
     <div class="rv"><div class="tag">LIVE</div><h4>手机桥 v0.1</h4><ul><li>上传/粘贴一张眼镜拍的标签照 → 浏览器内 OCR（Tesseract，照片不出本机）</li><li>自动抽出 SKU / 批次 / 数量 / 日期 / 箱号，全部可手改，改动记入变更日志</li><li>对照 PO 与应收数量 → PASS / HOLD / REJECT</li><li>生成报告号 + 全字段 SHA-256 指纹，可打印存 PDF、可导出 JSON</li></ul></div>
-    <div class="rv"><div class="tag">WHY</div><h4>它验证的是什么</h4><ul><li>验证「现场拍照 → 结构化数据 → 可核验报告」这条链路成立</li><li>验证工厂 QC 只多按一个键的可用性</li><li>下一步：把 OCR 换成 Qwen-VL（识别缺陷与规格偏差），后端接 CloudCell 工单</li></ul></div>
+    <div class="rv"><div class="tag">WHY</div><h4>它验证的是什么</h4><ul><li>验证「现场拍照 → 结构化数据 → 可核验报告」这条链路成立</li><li>验证工厂 QC 只多按一个键的可用性</li><li>下一步：把 OCR 换成 Qwen-VL（识别缺陷与规格偏差），后端接 CloudSail 工单</li></ul></div>
   </div>
   <div class="rv" style="margin-top:24px"><a class="hbtn g" href="../bridge/">打开手机桥原型 →</a></div>
 </div>
@@ -298,7 +298,7 @@ footer{border-top:1px solid var(--line);margin-top:80px;padding:26px 24px;text-a
   </div>
 </div>
 
-<footer>CLOUDCELL · AI 眼镜技术路线 v1 · <a href="../">← 回到 CloudCell 主页</a></footer>
+<footer>CLOUDSAIL · AI 眼镜技术路线 v1 · <a href="../">← 回到 CloudSail 主页</a></footer>
 </div>
 
 <script>
@@ -306,7 +306,7 @@ const ROUTES=[
   {h:'路线 A · 零改造拼装（2 周出原型，先跑起来）',
    ol:[
      '<b>不动眼镜。</b>Cyan Glasses 照常把照片/视频同步到手机相册。',
-     '<b>做一个「CloudCell验货助手」手机桥</b>（小程序或 RN App）：自动监听眼镜同步来的新照片，选工单号，一键上传 CloudCell。工厂 QC 全程只多按一个键。',
+     '<b>做一个「CloudSail验货助手」手机桥</b>（小程序或 RN App）：自动监听眼镜同步来的新照片，选工单号，一键上传 CloudSail。工厂 QC 全程只多按一个键。',
      '<b>中台调视觉模型</b>：PaddleOCR 先提标签文字，Qwen-VL 输出结构化 JSON（sku / 批次 / 数量 / 缺陷 / 置信度）。',
      '<b>规则引擎对照工单</b>：数量、规格、颜色偏差 → OK / NG，NG 进人工复核队列。',
      '<b>产出</b>：验货报告 PDF + 照片哈希，客户可在线复核。'
@@ -316,7 +316,7 @@ const ROUTES=[
   {h:'路线 B · 方案商企业定制（4–8 周）',
    ol:[
      '<b>拿路线 A 的试点数据去找 AiMB-G3 上游</b>（青成 qingcheng / 方案商），谈企业定制版。',
-     '<b>定制内容</b>：预置 App 直连 CloudCell API（不走个人账号）、开机自检、录制强制上传、画面烧入「时间 + 工单号」水印、关掉社交分享。',
+     '<b>定制内容</b>：预置 App 直连 CloudSail API（不走个人账号）、开机自检、录制强制上传、画面烧入「时间 + 工单号」水印、关掉社交分享。',
      '<b>通常 50–100 台起谈</b>，固件定制费另计——所以必须先有试点数据证明场景成立。',
      '<b>结果</b>：工厂拿到的就是「戴上就能干活」的企业设备，不再需要员工手机中转。'
    ],
@@ -327,7 +327,7 @@ const ROUTES=[
      '<b>什么时候换</b>：当试点证明需求成立、且客户要求「眼镜端直接看到识别结果/远程指导标注」时——无屏眼镜做不到这个。',
      '<b>首选 Rokid Glasses</b>：有开放平台 + SDK + 单绿色显示，¥2,199，能把识别结果直接投到视野里。',
      '<b>高端演示用雷鸟 X3 Pro / 夸克眼镜</b>；危化工场景直接 RealWear（防爆）。',
-     '<b>CloudCell 侧零改动</b>：架构不变，只是把「手机桥」换成眼镜原生 SDK。'
+     '<b>CloudSail 侧零改动</b>：架构不变，只是把「手机桥」换成眼镜原生 SDK。'
    ],
    why:'<b>为什么最后：</b>换硬件是最贵的答案，必须等到问题被验证为「硬件瓶颈」时才付这笔钱。',
    risk:'风险：各家 SDK 能力差异大，Rokid 平台政策变动需跟。'}
@@ -350,7 +350,7 @@ show(0);
 const NODES=[
   '<b>AiMB-G3</b> — 8MP 拍照足够读标签和外观，1200p 录像做巡检留痕。路线 B 之后画面会烧入「时间 + 工单号」水印，防篡改。镜腿触控戴手套也能操作，拍摄时 LED 亮灯让被拍方知情。',
   '<b>手机桥</b> — 路线 A 的关键新组件：自动监听眼镜同步来的媒体，绑定工单号，断网时本地缓存、有网自动补传（抄国内录音挂牌的成熟设计）。先做 Android/小程序版。',
-  '<b>CloudCell 中台</b> — 复用现有 FastAPI 骨架：鉴权、对象存储、任务队列。所有媒体挂在工单/批次/供应商三个维度上，天然就是检索入口。',
+  '<b>CloudSail 中台</b> — 复用现有 FastAPI 骨架：鉴权、对象存储、任务队列。所有媒体挂在工单/批次/供应商三个维度上，天然就是检索入口。',
   '<b>视觉识别层</b> — PaddleOCR 前置提文字 → Qwen-VL 输出结构化 JSON（sku/batch/qty/defect/confidence/lang）。工厂 SKU 库做检索增强，错例回灌每周迭代。数据不出境，只调国内模型。',
   '<b>规则引擎</b> — 识别结果对照工单/PO/BOM：数量对不对、规格对不对、颜色偏差、外观缺陷。OK 自动归档，NG 进人工复核——报告里永远标「AI 初判 + 人工复核」。',
   '<b>产出</b> — 验货报告 PDF（照片+判定+哈希）、控制台看板、飞书/企微异常通知。哈希同时进「锚」工作台的凭证链，让整条链可回溯。'
